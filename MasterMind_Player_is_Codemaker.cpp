@@ -69,7 +69,7 @@ void KnuthAlgorithm(){
     
     int turn = 1;
     while(true){
-        cout << "\n========Turn " << turn << "========\n" << flush;
+        cout << "\n========Turn " << turn++ << "========\n" << flush;
         cout << "Bot's GuessCode: " << GuessCode << '\n' << flush;
         cout << "Enter Colored-Pegs and White-Pegs: " << flush;
         int ColoredPegs = 0, WhitePegs = 0;
