@@ -14,7 +14,7 @@
      $F(1122,1112) = (3,0) \neq (1,1) \rightarrow\$ Loại bỏ 1112 khỏi S <br>
      $F(1122,1133) = (2,0) \neq (1,1) \rightarrow\$ Loại bỏ 1133 khỏi S <br>
      $F(1122,1212) = (2,2) \neq (1,1) \rightarrow\$ Loại bỏ 1212 khỏi S <br>
-     $F(1122,1234) = (1,1) \neq (1,1) \rightarrow\$ Giữ lại 1112 trong S <br>
+     $F(1122,1234) = (1,1) \neq (1,1) \rightarrow\$ Giữ lại 1234 trong S <br>
      
 6. Áp dụng kĩ thuật Minimax để tìm ra mã dự đoán tiếp theo.
    - Gọi T là tập hợp S sau khi loại bỏ những mã không có khả năng là mã bí mật.
