@@ -59,9 +59,11 @@ pii GetResponseCode(const string &SecretCode,const string &GuessCode){
 }
 
 void KnuthAlgorithm(){
-    vector<string> PossibleCode;
+    vector<string> AllCodes,PossibleCode;
+    AllCodes.clear();
     PossibleCode.clear();
-    generateAllCodes(PossibleCode);
+    generateAllCodes(AllCodes);
+    PossibleCode = AllCodes;
 
     string GuessCode = "";
     for (int i=0;i< CodeLength;i++ )
@@ -76,10 +78,15 @@ void KnuthAlgorithm(){
         cin >> ColoredPegs >> WhitePegs;
 
         if (ColoredPegs == CodeLength){
-            cout << "\n========I win with "<< turn << " turn========\n" << flush;
+            cout << "\n========Bot win with "<< turn - 1 << " turn========\n" << flush;
             cout << "End Game." << flush;
             return;
         }
+
+        AllCodes.erase(find(AllCodes.begin(),AllCodes.end(),GuessCode));
+        vector<string> :: iterator itFind = find(PossibleCode.begin(),PossibleCode.end(),GuessCode);
+        if (itFind != PossibleCode.end())
+            PossibleCode.erase(find(PossibleCode.begin(),PossibleCode.end(),GuessCode));
 
         vector<string> newPossibleCodes;
         for (const string &code : PossibleCode){
@@ -87,12 +94,13 @@ void KnuthAlgorithm(){
                 newPossibleCodes.push_back(code);
         }
         PossibleCode.swap(newPossibleCodes);
-        newPossibleCodes.clear();
+        vector<string>().swap(newPossibleCodes);
 
-        string nextGuess = "";
-        int minRemaining = PossibleCode.size();
         
-        for (const string &possible : PossibleCode){
+        vector<pair<string,int>> scoreOf;
+        int minRemaining = INT_MAX;
+        
+        for (const string &possible : AllCodes){
             map<pii,int> scoreResponse;
             for (const string &code : PossibleCode){
                 pii response = GetResponseCode(possible,code);
@@ -103,12 +111,22 @@ void KnuthAlgorithm(){
             for (const auto &it : scoreResponse)
                 maxElement = max(maxElement,it.se);
 
-            if (maxElement <= minRemaining){
-                minRemaining = maxElement;
-                if (nextGuess == "" || nextGuess < possible)
-                    nextGuess = possible;
-            }
+            minRemaining = min(minRemaining,maxElement);
+            scoreOf.emplace_back(make_pair(possible,maxElement));
         }
+
+        vector<string> candidateGuess;
+        for (int i=0;i< (int)scoreOf.size();i++ )
+            if (scoreOf[i].se == minRemaining)
+                candidateGuess.emplace_back(scoreOf[i].fi);
+        vector<pair<string,int>>().swap(scoreOf);
+
+        string nextGuess = candidateGuess[0];
+        for (int i=0;i< (int)candidateGuess.size();i++ )
+            if (find(PossibleCode.begin(),PossibleCode.end(),candidateGuess[i]) != PossibleCode.end()){
+                nextGuess = candidateGuess[i];
+                break;
+            }
 
         GuessCode = nextGuess;
     }
