@@ -127,6 +127,7 @@ void KnuthAlgorithm(){
                 nextGuess = candidateGuess[i];
                 break;
             }
+        vector<string>().swap(candidateGuess);
 
         GuessCode = nextGuess;
     }
