@@ -18,10 +18,11 @@
      
 6. Áp dụng kĩ thuật Minimax để tìm ra mã dự đoán tiếp theo.
    - Gọi T là tập hợp S sau khi loại bỏ những mã không có khả năng là mã bí mật.
-   - Duyệt lần lượt từng mã trong T, xem đó là mã dùng cho lần dự đoán tiếp theo, gọi là $guess$.
+   - Duyệt lần lượt từng mã trong 1296 mã ban đầu (kể cả những mã ngoài tập T), xem đó là mã dùng cho lần dự đoán tiếp theo, gọi là $guess$.
    - Và với mỗi $guess$, duyệt lần lượt lại từng mã trong T, và ta giả sử nó là mã bí mật, gọi là $secret$.
    - So sánh $guess$ với lần lượt các $secret$, đồng thời ta lưu lại với score[\{ $x_1$, $y_1$\}] là số lượng $secret$ khi so sánh với $guess$ cho $x_1$ chốt màu và $y_1$ chốt trắng.
-   - Và khi đó, mã dự đoán tối ưu nhất cho lần dự đoán tiếp theo là mã $guess$ có max\{score[\{ $x$, $y$\}]\} nhỏ nhất, tức là mã $guess$ này có nhiều khả năng thu hẹp số lượng các mã cần xét trong tập S lại nhiều nhất
+   - Đồng thời ta lưu lại tất cả những mã $guess$ có max\{score[\{ $x$, $y$\}]\} nhỏ nhất, tức là những mã $guess$ này có nhiều khả năng thu hẹp số lượng các mã cần xét trong tập S lại nhiều nhất, và gọi tập này là candidate.
+   - Và khi đó, mã dự đoán tối ưu tiếp theo nằm trong tập candidate. Lưu ý khi chọn mã trong tập candidate này, ta ưu tiên chọn những mã đồng thời thuộc cả tập T và chọn theo mã có thứ tự từ điển nhỏ nhất.
 7. Lặp lại bước thứ 3.
 
 ### Tài liệu tham khảo <br>
