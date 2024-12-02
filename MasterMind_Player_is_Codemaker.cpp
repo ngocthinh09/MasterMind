@@ -60,8 +60,6 @@ pii GetResponseCode(const string &SecretCode,const string &GuessCode){
 
 void KnuthAlgorithm(){
     vector<string> AllCodes,PossibleCode;
-    AllCodes.clear();
-    PossibleCode.clear();
     generateAllCodes(AllCodes);
     PossibleCode = AllCodes;
 
@@ -131,6 +129,9 @@ void KnuthAlgorithm(){
 
         GuessCode = nextGuess;
     }
+
+    vector<string>().swap(AllCodes);
+    vector<string>().swap(PossibleCode);
 }
 
 int main(){
